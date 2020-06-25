@@ -1,0 +1,14 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "App backend ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Richard Calderan",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^8.0.1"
+  }
+}
