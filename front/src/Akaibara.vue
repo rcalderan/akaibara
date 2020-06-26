@@ -1,15 +1,27 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="akaibara">
+    <Header />
+    <b-container fluid>
+      <router-view />
+    </b-container>
+    <Footer />
   </div>
 </template>
 
+<script>
+  import Header from './components/Hdr'
+  import Footer from './components/Footer'
+export default {
+  name: "akaibara",
+  components: {
+    Header,
+    Footer
+  }
+}
+</script>
+
 <style>
-#app {
+#akaibara {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

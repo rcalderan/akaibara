@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    Akaibara
+    Akaibara Home
   </div>
 </template>
 
