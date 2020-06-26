@@ -18,10 +18,12 @@ var api = express()
 
 var boom = require('express-boom');
 api.use(boom())
-/*
+
 //routes
-const persons = require('./src/routes/clienteRoutes')
+
 const products = require('./src/routes/productRoutes')
+/*
+const persons = require('./src/routes/clienteRoutes')
 const stock = require('./src/routes/stockRoutes')
 const sales = require('./src/routes/saleRoutes')
 const nfe = require('./src/routes/nfeRoutes')
@@ -39,9 +41,10 @@ api.get('/', function(req, res){
 });
 
 //adicionado o prefixo /api nas rotas para dar match no proxy do vue
+
+api.use("/product",products);
 //api.use("/api",express.static('public'));
 //api.use("/api/person",persons);
-//api.use("/api/product",products);
 //api.use("/api/stock",stock);
 //api.use("/api/sale",sales);
 //api.use("/api/nfe",nfe);
