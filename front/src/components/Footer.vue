@@ -19,7 +19,7 @@
     </b-col>
     <b-col class="m-3">
       <h3>akaibara: cozinha oriental</h3>
-      <h4>Estamos em Construçã!</h4>
+      <h4>Estamos em Construção!</h4>
       <h5>Faça seu pedido pelo whatsapp:</h5>
       <h6>(16) 99769-67899</h6>
     </b-col>
@@ -36,7 +36,7 @@
           </b-input-group>
         </b-col>
       </b-row>
-
+<!--
       <b-row>
         <b-col class="p-2">
           <h3>Redes Sociais</h3>
@@ -51,7 +51,7 @@
           <font-awesome-icon :icon="['fab', 'instagram']" size="3x" color="red" />
         </b-col>
       </b-row>
-
+--->
       <b-row>
         <b-col class="p-3">
           <p class="endereco">

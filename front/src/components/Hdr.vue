@@ -3,14 +3,13 @@
     <b-col cols="12">
       <b-row>
         <b-col cols="2">
-          <!--
-          <b-img fluid src="~../assets/logo_m.png" width="150px" alt="logo"></b-img>
-          -->
+          
+          
         </b-col>
         <b-col cols="8">
-          <h1>aKaibara</h1>
+          <b-img fluid src="logo-md.jpg" alt="akaibara"></b-img>
           <h3>Cozinha Oriental</h3>
-          <h5>Pratos de um família tradicional de São Carlos</h5>
+          <h6>Receitas de um família tradicional de São Carlos</h6>
         </b-col>
         <b-col cols="2">
           <!--
