@@ -18,8 +18,8 @@
       </b-row>
     </b-col>
     <b-col class="m-3">
-      <h3>akaibara: cozinha oriental</h3>
-      <h4>Estamos em Construção!</h4>
+      <h3>Cardápio em teste.</h3>
+      <h4></h4>
       <h5>Faça seu pedido pelo whatsapp:</h5>
       <h6>(16) 99769-67899</h6>
     </b-col>

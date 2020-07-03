@@ -28,7 +28,10 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
+.container-fluid{
+  padding-left: 0px;
+  padding-right: 0px;
+}
 #nav {
   padding: 30px;
 }

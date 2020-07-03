@@ -1,19 +1,19 @@
 <template>
-  <b-conteiner fluid id="home">
-    <Menu active="home" />
-    <News />
+  <b-conteiner fluid id="catalog">
+    <Menu active="catalog" />
+    <Catalog />
   </b-conteiner>
 </template>
 
 <script>
 // @ is an alias to /src
 import Menu from "../components/Menu";
-import News from "../components/News";
+import Catalog from "../components/Catalog";
 export default {
   name: "Home",
   components: {
     Menu,
-    News
+    Catalog
   }
 };
 </script>

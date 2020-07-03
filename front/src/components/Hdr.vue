@@ -7,7 +7,7 @@
           
         </b-col>
         <b-col cols="8">
-          <b-img fluid src="logo-md.jpg" alt="akaibara"></b-img>
+          <b-img fluid src="logo.png" alt="akaibara"></b-img>
           <h3>Cozinha Oriental</h3>
           <h6>Receitas de um família tradicional de São Carlos</h6>
         </b-col>

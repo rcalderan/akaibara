@@ -1,5 +1,5 @@
 <template>
-  <b-container id="mn">
+  <b-container fluid id="mn">
     <b-nav fill>
       <b-nav-item v-if="active==='home'" active to="/" exact>Inicio</b-nav-item>
       <b-nav-item v-else to="/" exact>Inicio</b-nav-item>
@@ -10,21 +10,27 @@
         toggle-class="nav-link-custom"
         right
       >
-        <b-dropdown-item v-if="active==='entrada'" active to="/cardapio" exact>Entradas</b-dropdown-item>
-        <b-dropdown-item v-else to="/cardapio" exact>Entradas</b-dropdown-item>
-        
-        <b-dropdown-item v-if="active==='quente'" active to="/cardapio" exact>Pratos quentes</b-dropdown-item>
-        <b-dropdown-item v-else to="/cardapio" exact>Pratos quentes</b-dropdown-item>
-        
-        <b-dropdown-item disabled v-if="active==='frio'" active to="/cardapio" exact>SushiBar (soon?)</b-dropdown-item>
-        <b-dropdown-item disabled v-else to="/cardapio" exact>SushiBar (soon?)</b-dropdown-item>
+        <b-dropdown-item v-if="active==='entrada'" active to="/catalog" exact>Entradas</b-dropdown-item>
+        <b-dropdown-item v-else to="/catalog" exact>Entradas</b-dropdown-item>
+
+        <b-dropdown-item v-if="active==='quente'" active to="/catalog" exact>Pratos quentes</b-dropdown-item>
+        <b-dropdown-item v-else to="/catalog" exact>Pratos quentes</b-dropdown-item>
+
+        <b-dropdown-item
+          disabled
+          v-if="active==='frio'"
+          active
+          to="/catalog"
+          exact
+        >SushiBar (soon?)</b-dropdown-item>
+        <b-dropdown-item disabled v-else to="/catalog" exact>SushiBar (soon?)</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item disabled> Sobremesas</b-dropdown-item>
+        <b-dropdown-item disabled>Sobremesas</b-dropdown-item>
       </b-nav-item-dropdown>
-      
+
       <b-nav-item disabled v-if="active==='historia'" active to="/" exact>Nossa História</b-nav-item>
       <b-nav-item disabled v-else to="/" exact>Nossa História</b-nav-item>
-      
+
       <b-nav-item disabled v-if="active==='sobre'" active to="/" exact>sobre</b-nav-item>
       <b-nav-item disabled v-else to="/" exact>sobre</b-nav-item>
     </b-nav>
@@ -119,8 +125,18 @@ export default {
   background-color: #fff !important;
   color: red;
 }
+.container-fluid{  
+  padding-right: 0px;
+  padding-left: 0px;
+}
+#mn {
+  background-color: #2b2d2c;
+}
 #mn .nav-link {
   color: red;
+}
+.dropdown-item {
+  color: #ff8181;
 }
 #mn .active {
   border-bottom: 3px solid red;
