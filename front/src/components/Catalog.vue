@@ -513,50 +513,31 @@
       </div>
     </b-container>
     <b-container v-else>
-      <div class="menu-group">
-        <div class="shop-item" v-for="n in [1,2,3,4,5,6,7]" v-bind:key="n">
-          <b-row>
-            <b-col>
-          <div class="item-tittle">Tit {{n}}</div></b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-            <img src="logo.png" alt />
-          </b-col>
-          <b-col>
-            
-          <div class="item-value">${{n*3.4}}0</div>
-          <div class="item-description">
-            <p>lalala</p>
-          </div>
-          <div class="item-control">
-            <span>1 in stock</span>
-            <button>add to cart</button>
-          </div>
-          </b-col>
-          </b-row>
-          
-        </div>
-        <div class="item-shop" v-for="n in [1,2,3]" v-bind:key="n">
-          <b-card no-body class="overflow-hidden" style="max-width: 400px;">
-            <b-row no-gutters>
-              <b-col md="6">
-                <b-card-img
-                  src="https://picsum.photos/400/400/?image=20"
-                  alt="Image"
-                  class="rounded-0 shop-item"
-                ></b-card-img>
-              </b-col>
-              <b-col md="6">
-                <b-card-body title="Horizontal Card">
-                  <b-card-text>
-                    This is a wider card with supporting text as a natural lead-in to additional content.
-                    This content is a little bit longer.
-                  </b-card-text>
-                </b-card-body>
+      <div v-if="item._id !=0" class="selected">
+        <b-row>
+          <b-col cols="6">hi!</b-col>
+        </b-row>
+      </div>
+      <div class="menu-group" v-for="p in produtos" v-bind:key="p">
+        <div class="shop-item">
+          <div v-if="p.type==type">
+            <b-row>
+              <b-col>
+                <div class="item-tittle">{{p.name}}</div>
               </b-col>
             </b-row>
-          </b-card>
+            <b-row>
+              <b-col>
+                <img :src="p.src" @click="selectItem(p._id)" />
+              </b-col>
+              <b-col>
+                <div class="item-description">
+                  <p>{{p.description}}</p>
+                </div>
+                <div class="item-control"></div>
+              </b-col>
+            </b-row>
+          </div>
         </div>
       </div>
     </b-container>
@@ -564,14 +545,125 @@
 </template>
 
 <script>
+const defaults = {
+  item: {
+    _id: 0,
+    type: "",
+    name: "",
+    description: "",
+    option: [{ price: 0, weigth: 0, active: false }],
+    src: ""
+  }
+};
 export default {
   name: " catalog",
+  props: {
+    type: { type: String }
+  },
   data: function() {
-    return {};
+    return {
+      item: defaults.item
+    };
   },
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    produtos() {
+      return [
+        {
+          _id: 1,
+          type: "yakisoba",
+          name: "Yakisoba Vegetariano",
+          description:
+            "Yakisoba com legumes. Macarrão especial grelhado com cenoura, brócolis, repolho e cocumelos champignon e shitake!",
+          option: [{ price: 25.9, weigth: 800, active: true }],
+          src: "img/Yakisoba-1.jpg"
+        },
+        {
+          _id: 2,
+          type: "yakisoba",
+          name: "Yakisoba Carne",
+          description:
+            "Yakisoba com carne bovina. Macarrão especial grelhado com carne bovina (contra filé) e legumes: cenoura, brócolis, repolho e champignon!",
+          option: [{ price: 28.5, weigth: 800, active: true }],
+          src: "img/Yakisoba-11.jpg"
+        },
+        {
+          _id: 3,
+          type: "yakisoba",
+          name: "Yakisoba Frango",
+          description:
+            "Yakisoba de frango. Macarrão especial grelhado com carne de frango (super macia) com legumes: cenoura, brócolis, repolho e champignon!",
+          option: [{ price: 26.0, weigth: 800, active: true }],
+          src: "img/Yakisoba-4.jpg"
+        },
+        {
+          _id: 4,
+          type: "yakisoba",
+          name: "Yakisoba completo",
+          description:
+            "Yakisoba completo. Macarrão especial grelhado com contra filé, frango legumes e cogumelos. Com Cenoura, brócolis, repolho, champignon e shitake!",
+          option: [{ price: 32.0, weigth: 800, active: true }],
+          src: "img/Yakisoba-14.jpg"
+        },
+        {
+          _id: 5,
+          type: "kare",
+          name: "Karê De carne Nivel 1",
+          description: "Karê de carne levemente picante",
+          option: [{ price: 16.5, weigth: 800, active: true }],
+          src: "img/11.jpg"
+        },
+        {
+          _id: 6,
+          type: "kare",
+          name: "Karê de carne Nivel 2",
+          description: "Karê de carne picância na medida",
+          option: [{ price: 16.5, weigth: 800, active: true }],
+          src: "img/12.jpg"
+        },
+        {
+          _id: 7,
+          type: "kare",
+          name: "Karê de carne Nivel 3",
+          description: "Karê de carne picante!",
+          option: [{ price: 17.5, weigth: 500, active: true }],
+          src: "img/13.jpg"
+        },
+        {
+          _id: 8,
+          type: "kare",
+          name: "Karê de carne Nivel 4",
+          description: "Karê de carne Desafio de Picância",
+          option: [{ price: 19.5, weigth: 500, active: true }],
+          src: "img/14.jpg"
+        },
+        {
+          _id: 9,
+          type: "outros",
+          name: "Frango Xadrez",
+          description: "O Frango Xadrez mais gostoso que você vai experimentar",
+          option: [{ price: 22.5, weigth: 500, active: true }],
+          src: "img/10.jpg"
+        },
+        {
+          _id: 10,
+          type: "outros",
+          name: "Yakimeshi Tradicional",
+          description: "Yakimeshi (chahan) tradicional ",
+          option: [{ price: 12.9, weigth: 500, active: true }],
+          src: "img/3.jpg"
+        },
+        {
+          _id: 11,
+          type: "outros",
+          name: "Yakimeshi com bacon",
+          description: "Yakimeshi (chahan) com bacon ",
+          option: [{ price: 15.9, weigth: 500, active: true }],
+          src: "img/6.jpg"
+        }
+      ];
     }
   },
 
@@ -580,11 +672,36 @@ export default {
       //this.search(this.$route.params.id);
     }
   },
-  methods: {}
+  methods: {
+    selectItem: id => {
+      this.produtos.forEach(p => {
+        if (p._id == id) this.item = p;
+        alert("2");
+        return;
+      });
+      alert("3");
+      this.item = defaults.item;
+    },
+    find: async id => {
+      this.produtos.forEach(p => {
+        if (p._id == id) return p;
+      });
+      return defaults.item;
+    }
+  }
 };
 </script>
 
 <style>
+.selected {
+  position: fixed;
+  width: 100vw;
+  height: 100vw;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.945);
+  z-index: 1000;
+}
 #product-admin {
   text-align: left;
 }
@@ -595,7 +712,7 @@ export default {
   position: relative;
   width: 100%;
 }
-.card{
+.card {
   display: inline-block;
 }
 .shop-content h1 {
@@ -609,11 +726,14 @@ export default {
   display: inline-block;
   width: 450px;
   height: 100%;
-  border: 1px solid rgb(255, 188, 188);
+  border: 1px solid #ffe1e1;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
   margin: 10px 0 0 30px;
 }
 .shop-item:hover {
-  border: 1px solid red;
+  background-color: #ffe1e1;
+  cursor: pointer;
 }
 .item-control {
   margin-bottom: 0;
@@ -629,6 +749,6 @@ export default {
   width: 100%;
   background-color: #ff7474;
   margin-bottom: 1px;
-  border-color: rgb(255, 188, 188) ;
+  border-color: rgb(255, 188, 188);
 }
 </style>

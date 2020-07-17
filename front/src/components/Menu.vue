@@ -10,11 +10,14 @@
         toggle-class="nav-link-custom"
         right
       >
-        <b-dropdown-item v-if="active==='entrada'" active to="/catalog" exact>Entradas</b-dropdown-item>
-        <b-dropdown-item v-else to="/catalog" exact>Entradas</b-dropdown-item>
 
-        <b-dropdown-item v-if="active==='quente'" active to="/catalog" exact>Pratos quentes</b-dropdown-item>
-        <b-dropdown-item v-else to="/catalog" exact>Pratos quentes</b-dropdown-item>
+        <b-dropdown-item v-if="active==='yakisoba'" active to="/catalog?type=yakisoba" exact>Yakisoba</b-dropdown-item>
+        <b-dropdown-item v-else to="/catalog?type=yakisoba" exact>Yakisoba</b-dropdown-item>
+        <b-dropdown-item v-if="active==='kare'" active to="/catalog?type=kare" exact>Karê</b-dropdown-item>
+        <b-dropdown-item v-else to="/catalog?type=yakisoba" exact>Karê</b-dropdown-item>
+        <b-dropdown-item v-if="active==='kare'" active to="/catalog?type=more" exact>Outros</b-dropdown-item>
+        <b-dropdown-item v-else to="/catalog?type=more" exact>Outros</b-dropdown-item>
+        <b-dropdown-divider></b-dropdown-divider>
 
         <b-dropdown-item
           disabled
