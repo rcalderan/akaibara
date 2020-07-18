@@ -513,13 +513,29 @@
       </div>
     </b-container>
     <b-container v-else>
+      <b-modal id="modal-center" v-model="showSelected" centered :title="item.name">
+        <p class="my-4">{{item.description}}</p>
+        <b-img center fluid :src="item.src" />
+        <template v-slot:modal-footer>
+          <div class="w-100">
+            <div v-for="o in item.options" v-bind:key="o">
+              <p>
+                {{o.weigth}}g
+                <strong>$ {{o.price}}</strong>
+              </p>
+            </div>
+            <b-button variant="primary" size="sm" class="float-right" @click="showSelected=false">Close</b-button>
+          </div>
+        </template>
+      </b-modal>
+      <!--
       <div v-if="item._id !=0" class="selected">
         <b-row>
-          <b-col cols="6">hi!</b-col>
+          <b-col cols="6">hi!!!!!!!</b-col>
         </b-row>
-      </div>
-      <div class="menu-group" v-for="p in produtos" v-bind:key="p">
-        <div class="shop-item">
+      </div>--->
+      <div class="menu-group" v-for="p in products" v-bind:key="p._id">
+        <div class="shop-item" @click="selectItem(p._id)">
           <div v-if="p.type==type">
             <b-row>
               <b-col>
@@ -528,7 +544,7 @@
             </b-row>
             <b-row>
               <b-col>
-                <img :src="p.src" @click="selectItem(p._id)" />
+                <img :src="p.src" />
               </b-col>
               <b-col>
                 <div class="item-description">
@@ -545,7 +561,7 @@
 </template>
 
 <script>
-const defaults = {
+let defaults = {
   item: {
     _id: 0,
     type: "",
@@ -562,6 +578,7 @@ export default {
   },
   data: function() {
     return {
+      showSelected: false,
       item: defaults.item
     };
   },
@@ -569,7 +586,7 @@ export default {
     user() {
       return this.$store.state.user;
     },
-    produtos() {
+    products: function() {
       return [
         {
           _id: 1,
@@ -673,20 +690,14 @@ export default {
     }
   },
   methods: {
-    selectItem: id => {
-      this.produtos.forEach(p => {
-        if (p._id == id) this.item = p;
-        alert("2");
-        return;
+    selectItem: function(id) {
+      this.products.forEach(p => {
+        if (p._id == id) {
+          this.item = p;
+          this.showSelected = true;
+          return;
+        }
       });
-      alert("3");
-      this.item = defaults.item;
-    },
-    find: async id => {
-      this.produtos.forEach(p => {
-        if (p._id == id) return p;
-      });
-      return defaults.item;
     }
   }
 };
