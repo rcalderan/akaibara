@@ -22,8 +22,8 @@ api.use(boom())
 //routes
 
 const products = require('./src/routes/productRoutes')
+const user = require('./src/routes/userRoutes')
 /*
-const persons = require('./src/routes/clienteRoutes')
 const stock = require('./src/routes/stockRoutes')
 const sales = require('./src/routes/saleRoutes')
 const nfe = require('./src/routes/nfeRoutes')
@@ -43,8 +43,8 @@ api.get('/', function(req, res){
 //adicionado o prefixo /api nas rotas para dar match no proxy do vue
 
 api.use("/product",products);
+api.use("/user",user);
 //api.use("/api",express.static('public'));
-//api.use("/api/person",persons);
 //api.use("/api/stock",stock);
 //api.use("/api/sale",sales);
 //api.use("/api/nfe",nfe);

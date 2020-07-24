@@ -1,30 +1,35 @@
+//const BaseRoute = require('./base/baseRoute')
+
+/*const Joi = require('joi')
+const Boom = require('boom')
+*/
 
 /**
- * product.js
+ * user.js
     3672382 - Richard Carvalho Calderan
 
-    define products routes
+    define users routes
  */
 
 var express = require('express');
 var router = express.Router();
+//var app = require('./../database/app');
 
 //database
 var MongoDb = require('../database/mongoDb')
-const schema = require('../database/schemas/productSchema');
+const schema = require('../database/schemas/userSchema');
+//const deliveryClientschema = require('../database/schemas/delivery/userSchema');
 
-//validator
-const validation = require('./base/productValidation');
-//const middleware = require('./base/validade');
+//midleware vadidator
+const validation = require('./base/userValidation');
 
+let userConn = new MongoDb(MongoDb.connect(), schema);
 
-let produtos = new MongoDb(MongoDb.connect(), schema);
-
-//get all products
+//get all users
 router.get('/', async function (req, res) {
     try {
         //querys: ?skip=0&limit=10
-        console.log("-> get product")
+        console.log("-> get user")
         let skip = req.query.skip ? parseInt(req.query.skip) : 0
         let limit = req.query.limit ? parseInt(req.query.limit) : 10
         if (isNaN(skip) || isNaN(limit)) {
@@ -33,17 +38,17 @@ router.get('/', async function (req, res) {
         }
         let query = {}
         let {
-            nome, valor
+            nome, cpf
         } = req.query
         query = nome ? {
             nome: { $regex: `.*${nome}*.` }
         } : {}
-        query = valor ? {
+        query = cpf ? {
             ...query,
-            valor: `${valor}`
+            cpf: `${cpf}`
         } : query
-
-        let result = await produtos.read(query, skip, limit);
+        userConn = new MongoDb(MongoDb.connect(), schema);
+        let result = await userConn.read(query, skip, limit);
         if (result.length === 0)
             res.boom.notFound()
         else {
@@ -60,7 +65,7 @@ router.get('/', async function (req, res) {
 router.get('/lastid', async function (req, res) {
     try {
         console.log("-> get lastid")
-        let result = await produtos.lastId();
+        let result = await userConn.lastId();
         if (result.length === 0)
             res.boom.notFound()
         else {
@@ -77,7 +82,7 @@ router.get('/lastid', async function (req, res) {
 router.get('/last', async function (req, res) {
     try {
         console.log("-> get last")
-        let result = await produtos.aggregate([{ "$sort": { _id: -1 } }, { "$limit": 1 }]);
+        let result = await userConn.aggregate([{ "$sort": { _id: -1 } }, { "$limit": 1 }]);
         if (result.length === 0)
             res.boom.notFound()
         else {
@@ -93,13 +98,9 @@ router.get('/last', async function (req, res) {
 //get list of all names
 router.get('/names', async function (req, res) {
     try {
-        //querys: ?skip=0&limit=10
-        console.log("-> get names")/*
-        let skip=req.query.skip ? parseInt( req.query.skip):0
-        let limit = req.query.limit ? parseInt(req.query.limit):10
-        */
+        console.log("-> get names")
 
-        const result = await produtos.distinct('nome')
+        const result = await userConn.distinct('name')
         if (result.length === 0)
             res.boom.notFound()
         else {
@@ -114,12 +115,12 @@ router.get('/names', async function (req, res) {
 
 //get user by id
 router.get('/:id([0-9]+)', async (req, res) => {
-    try {//querys: product/id
+    try {//querys: user/id
         let gotId = parseInt(req.params.id);
-        console.log("-> get product " + gotId)
-        let found = await produtos.read({ _id: gotId })
-        const curr = found.filter(product => {
-            if (product._id === gotId) {
+        console.log("-> get user " + gotId)
+        let found = await userConn.read({ _id: gotId })
+        const curr = found.filter(user => {
+            if (user._id === gotId) {
                 return true;
             }
         });
@@ -134,20 +135,19 @@ router.get('/:id([0-9]+)', async (req, res) => {
     }
 });
 
-
-//post product
-router.post('/',  async (req, res) => {
+//post user
+router.post('/', validation.userPOST(), async (req, res) => {
     try {
-        console.log("-> Create new product")
-        const result = await produtos.create(req.body)
-        res.send({ message: "Success!", _id: result._id });
+        console.log("-> Create new user")
+        const result = await userConn.create(req.body)
+        res.send({ message: "Sucess!", _id: result._id });
     } catch (error) {
         console.log(error)
         res.boom.preconditionFailed()
     }
 });
 
-router.put('/:id([0-9]+)', validation.productPut(), async (req, res) => {
+router.put('/:id([0-9]+)', validation.userPut(), async (req, res) => {
     try {/*
         if (!req.body.type ||
             !req.body.name ||
@@ -161,15 +161,15 @@ router.put('/:id([0-9]+)', validation.productPut(), async (req, res) => {
         }*/
 
         let gotId = parseInt(req.params.id);
-        let product = req.body;
-        product._id = gotId;
-        let result = await produtos.update(gotId, product);
+        let user = req.body;
+        user._id = gotId;
+        let result = await userConn.update(gotId, user);
         if (result.nModified === 1)
             res.json({ message: "Updated!" });
         else {
-            let found = await produtos.read({ _id: gotId })
-            const curr = found.filter(product => {
-                if (product._id === gotId) {
+            let found = await userConn.read({ _id: gotId })
+            const curr = found.filter(user => {
+                if (user._id === gotId) {
                     return true;
                 }
             });
@@ -189,9 +189,9 @@ router.put('/:id([0-9]+)', validation.productPut(), async (req, res) => {
 router.delete('/:id([0-9]+)', async (req, res) => {
     try {
         let gotId = parseInt(req.params.id);
-        let result = await produtos.delete(gotId);
+        let result = await userConn.delete(gotId);
         if (result.n === 1) {
-            res.json({ message: "Product Removed!" })
+            res.json({ message: "user Removed!" })
         } else {
             res.boom.notFound()
         }
