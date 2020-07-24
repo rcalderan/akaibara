@@ -1,3 +1,4 @@
+
 <template>
   <b-container id="catalog">
     <b-container id="product-admin" v-if="user.type==='admin'">
@@ -516,6 +517,11 @@
       <b-modal id="modal-center" v-model="showSelected" centered :title="item.name">
         <p class="my-4">{{item.description}}</p>
         <b-img center fluid :src="item.src" />
+
+        <b-row v-for="o in item.option" v-bind:key="o">
+          <b-col cols="12">{{o.weigth}}g=
+          <b-badge pill>${{o.price.toFixed(2)}}</b-badge></b-col>
+        </b-row>
         <template v-slot:modal-footer>
           <div class="w-100">
             <div v-for="o in item.options" v-bind:key="o">
@@ -524,39 +530,44 @@
                 <strong>$ {{o.price}}</strong>
               </p>
             </div>
-            <b-button variant="primary" size="sm" class="float-right" @click="showSelected=false">Close</b-button>
+            <b-button
+              variant="primary"
+              size="sm"
+              class="float-right"
+              @click="showSelected=false"
+            >Close</b-button>
           </div>
         </template>
       </b-modal>
-      <!--
-      <div v-if="item._id !=0" class="selected">
-        <b-row>
-          <b-col cols="6">hi!!!!!!!</b-col>
-        </b-row>
-      </div>--->
-      <div class="menu-group" v-for="p in products" v-bind:key="p._id">
+      <div class="menu-group" v-for="p in filtredProducts" v-bind:key="p._id">
         <div class="shop-item" @click="selectItem(p._id)">
-          <div v-if="p.type==type">
-            <b-row>
-              <b-col>
-                <div class="item-tittle">{{p.name}}</div>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col>
-                <img :src="p.src" />
-              </b-col>
-              <b-col>
-                <div class="item-description">
-                  <p>{{p.description}}</p>
-                </div>
-                <div class="item-control"></div>
-              </b-col>
-            </b-row>
-          </div>
+          <div v-if="p.open" class="open">servindo!</div>
+          <div v-else class="advice">em breve</div>
+          <b-row>
+            <b-col>
+              <div class="item-tittle">{{p.name}}</div>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <img :src="p.src" />
+            </b-col>
+            <b-col>
+              <div class="item-description">
+                <p>{{p.description}}</p>
+                <p style="font-size:12px; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;" v-for="o in p.option" v-bind:key="o">
+                  {{o.weigth}}g=
+                  <b-badge pill>${{o.price.toFixed(2)}}</b-badge>
+                </p>
+              </div>
+              <div class="item-control"></div>
+            </b-col>
+          </b-row>
         </div>
       </div>
     </b-container>
+
+    <router-view></router-view>
   </b-container>
 </template>
 
@@ -567,19 +578,24 @@ let defaults = {
     type: "",
     name: "",
     description: "",
+    ingredients: [],
     option: [{ price: 0, weigth: 0, active: false }],
-    src: ""
+    src: "",
+    open: false
   }
 };
 export default {
-  name: " catalog",
+  //http://www.akaibara.com.br/catalog?type=yakisoba
+  //http://www.akaibara.com.br/catalog?id=1
+  name: "catalog",
   props: {
-    type: { type: String }
+    //type: { type: String }
   },
   data: function() {
     return {
       showSelected: false,
-      item: defaults.item
+      item: defaults.item,
+      filtredProducts: this.products
     };
   },
   computed: {
@@ -587,106 +603,26 @@ export default {
       return this.$store.state.user;
     },
     products: function() {
-      return [
-        {
-          _id: 1,
-          type: "yakisoba",
-          name: "Yakisoba Vegetariano",
-          description:
-            "Yakisoba com legumes. Macarrão especial grelhado com cenoura, brócolis, repolho e cocumelos champignon e shitake!",
-          option: [{ price: 25.9, weigth: 800, active: true }],
-          src: "img/Yakisoba-1.jpg"
-        },
-        {
-          _id: 2,
-          type: "yakisoba",
-          name: "Yakisoba Carne",
-          description:
-            "Yakisoba com carne bovina. Macarrão especial grelhado com carne bovina (contra filé) e legumes: cenoura, brócolis, repolho e champignon!",
-          option: [{ price: 28.5, weigth: 800, active: true }],
-          src: "img/Yakisoba-11.jpg"
-        },
-        {
-          _id: 3,
-          type: "yakisoba",
-          name: "Yakisoba Frango",
-          description:
-            "Yakisoba de frango. Macarrão especial grelhado com carne de frango (super macia) com legumes: cenoura, brócolis, repolho e champignon!",
-          option: [{ price: 26.0, weigth: 800, active: true }],
-          src: "img/Yakisoba-4.jpg"
-        },
-        {
-          _id: 4,
-          type: "yakisoba",
-          name: "Yakisoba completo",
-          description:
-            "Yakisoba completo. Macarrão especial grelhado com contra filé, frango legumes e cogumelos. Com Cenoura, brócolis, repolho, champignon e shitake!",
-          option: [{ price: 32.0, weigth: 800, active: true }],
-          src: "img/Yakisoba-14.jpg"
-        },
-        {
-          _id: 5,
-          type: "kare",
-          name: "Karê De carne Nivel 1",
-          description: "Karê de carne levemente picante",
-          option: [{ price: 16.5, weigth: 800, active: true }],
-          src: "img/11.jpg"
-        },
-        {
-          _id: 6,
-          type: "kare",
-          name: "Karê de carne Nivel 2",
-          description: "Karê de carne picância na medida",
-          option: [{ price: 16.5, weigth: 800, active: true }],
-          src: "img/12.jpg"
-        },
-        {
-          _id: 7,
-          type: "kare",
-          name: "Karê de carne Nivel 3",
-          description: "Karê de carne picante!",
-          option: [{ price: 17.5, weigth: 500, active: true }],
-          src: "img/13.jpg"
-        },
-        {
-          _id: 8,
-          type: "kare",
-          name: "Karê de carne Nivel 4",
-          description: "Karê de carne Desafio de Picância",
-          option: [{ price: 19.5, weigth: 500, active: true }],
-          src: "img/14.jpg"
-        },
-        {
-          _id: 9,
-          type: "outros",
-          name: "Frango Xadrez",
-          description: "O Frango Xadrez mais gostoso que você vai experimentar",
-          option: [{ price: 22.5, weigth: 500, active: true }],
-          src: "img/10.jpg"
-        },
-        {
-          _id: 10,
-          type: "outros",
-          name: "Yakimeshi Tradicional",
-          description: "Yakimeshi (chahan) tradicional ",
-          option: [{ price: 12.9, weigth: 500, active: true }],
-          src: "img/3.jpg"
-        },
-        {
-          _id: 11,
-          type: "outros",
-          name: "Yakimeshi com bacon",
-          description: "Yakimeshi (chahan) com bacon ",
-          option: [{ price: 15.9, weigth: 500, active: true }],
-          src: "img/6.jpg"
-        }
-      ];
+      return this.$store.state.catalog
     }
   },
 
   mounted() {
+    let query = this.$route.query;
     if (this.$route.params.id !== undefined) {
-      //this.search(this.$route.params.id);
+      //this.selectItem(this.$route.params.id);
+      //query.type = this.item.type
+    }
+    if (query != undefined) {
+      let type = query.type;
+      if (query.id != undefined) {
+        this.selectItem(query.id);
+        type = this.item.type;
+      }
+      let filtred = this.products.filter(function(value) {
+        return value.type == type;
+      });
+      this.filtredProducts = filtred.length>0 ? filtred: this.products;
     }
   },
   methods: {
@@ -704,14 +640,27 @@ export default {
 </script>
 
 <style>
-.selected {
-  position: fixed;
-  width: 100vw;
-  height: 100vw;
-  left: 0px;
-  top: 0px;
-  background-color: rgba(0, 0, 0, 0.945);
-  z-index: 1000;
+.advice {
+  right: -45px;
+  bottom: -8px;
+  padding-right: 35px;
+  padding-left: 35px;
+  padding-bottom: 30px;
+  transform: rotate(-45deg) translate(0, -100%);
+  transform-origin: 100% 0;
+  background-color: #ff7474;
+  position: absolute;
+}
+.open {
+  right: -45px;
+  bottom: -8px;
+  padding-right: 35px;
+  padding-left: 35px;
+  padding-bottom: 30px;
+  transform: rotate(-45deg) translate(0, -100%);
+  transform-origin: 100% 0;
+  background-color: #028f0e;
+  position: absolute;
 }
 #product-admin {
   text-align: left;
@@ -741,6 +690,7 @@ export default {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   margin: 10px 0 0 30px;
+  overflow: hidden;
 }
 .shop-item:hover {
   background-color: #ffe1e1;

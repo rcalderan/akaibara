@@ -12,47 +12,6 @@
           <h6>Receitas de um família tradicional de São Carlos</h6>
         </b-col>
         <b-col cols="2">
-          <!--
-          <b-row align-h="end">
-            <b-col cols="2" class="p-1">
-              <b-dropdown id="dropdown-form" variant="link" toggle-class="text-decoration-none" no-caret>
-                <template v-slot:button-content>
-                  <font-awesome-icon :icon="['fas', 'user']" color="#c2995d" />
-                </template>
-                <b-dropdown-form>
-                  <b-form-group label="Email" label-for="dropdown-form-email" @submit.stop.prevent>
-                    <b-form-input
-                      id="dropdown-form-email"
-                      size="sm"
-                      placeholder="email@example.com"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-group label="Password" label-for="dropdown-form-password">
-                    <b-form-input
-                      id="dropdown-form-password"
-                      type="password"
-                      size="sm"
-                      placeholder="Password"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
-                  <b-button variant="primary" size="sm">Sign In</b-button>
-                </b-dropdown-form>
-                <b-dropdown-divider></b-dropdown-divider>
-                <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
-                <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
-              </b-dropdown>
-            </b-col>
-            <b-col cols="2" class="p-1">
-              <font-awesome-icon :icon="['fas', 'shopping-cart']" color="#c2995d" />
-            </b-col>
-            <b-col cols="2" class="p-1">
-              <font-awesome-icon :icon="['fas', 'cog']" color="#c2995d" />
-            </b-col>
-          </b-row>
-          --->
         </b-col>
       </b-row>
       <b-row>

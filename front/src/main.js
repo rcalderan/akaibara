@@ -26,8 +26,13 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('font-awesome-layers', FontAwesomeLayers)
 Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
 
-//Vue.use(Vuex)
 Vue.config.productionTip = false
+
+//load vuex 
+async function initStore() {
+  await store.dispatch('updateCatalog')
+}
+initStore()
 
 new Vue({
   router,

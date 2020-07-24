@@ -1,20 +1,18 @@
 <template>
-  <div id="akaibara">
-    <Header />
-    <b-container fluid>
+  <b-container fluid id="akaibara">
+    
       <router-view />
-    </b-container>
     <Footer />
-  </div>
+  </b-container>
 </template>
 
 <script>
-  import Header from './components/Hdr'
+  //import Header from './components/Hdr'
   import Footer from './components/Footer'
 export default {
   name: "akaibara",
   components: {
-    Header,
+    //Header,
     Footer
   }
 }
@@ -27,6 +25,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding: 0px 0px 0px 0px;
 }
 .container-fluid{
   padding-left: 0px;

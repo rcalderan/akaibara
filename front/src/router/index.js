@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Catalog from '../views/Catalog.vue'
+import User from '../views/User.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,17 @@ Vue.use(VueRouter)
     path: '/catalog',
     name: 'Catalog',
     component: Catalog
+  },
+  {
+    path: '/catalog/:id',
+    name: 'Catalog',
+    component: Catalog
+  },
+  
+  {
+    path: '/user',
+    name: 'User',
+    component: User
   },
   {
     path: '/about',

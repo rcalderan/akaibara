@@ -1,24 +1,25 @@
 <template>
-  <b-container fluid id="catalog">
-    <Menu active="catalog" />
-    <Catalog />
+  <b-container fluid id="user">
+    
+    <Menu />
+    <User />
   </b-container>
 </template>
 
 <script>
 // @ is an alias to /src
 import Menu from "../components/Menu";
-import Catalog from "../components/Catalog";
+import User from "../components/User";
 export default {
-  name: "Home",
+  name: "user",
   components: {
     Menu,
-    Catalog
+    User
   }
 };
 </script>
 <style>
-#home {
+#user {
   padding-left: 0px;
   padding-right: 0px;
 }

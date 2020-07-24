@@ -18,44 +18,14 @@
       </b-row>
     </b-col>
     <b-col class="m-3">
-      <h3>Cardápio em teste.</h3>
-      <h4></h4>
       <h5>Faça seu pedido pelo whatsapp:</h5>
-      <h6>(16) 99769-67899</h6>
+      <h6>(16) 99769.6789</h6>
     </b-col>
     <b-col>
       <b-row>
-        <b-col>
-          <b-input-group class="mt-3">
-            <b-form-input placeholder="Seu e-mail"></b-form-input>
-            <b-input-group-append>
-              <b-button variant="info">
-                <font-awesome-icon :icon="['fas', 'envelope']" color="#fff" />
-              </b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-col>
-      </b-row>
-<!--
-      <b-row>
-        <b-col class="p-2">
-          <h3>Redes Sociais</h3>
-        </b-col>
-      </b-row>
-
-      <b-row align-h="center">
-        <b-col cols="3" class="p-2">
-          <font-awesome-icon :icon="['fab', 'facebook']" size="3x" color="red" />
-        </b-col>
-        <b-col cols="3" class="p-2">
-          <font-awesome-icon :icon="['fab', 'instagram']" size="3x" color="red" />
-        </b-col>
-      </b-row>
---->
-      <b-row>
         <b-col class="p-3">
           <p class="endereco">
-            Rua Benedito da Silva. Jardim São Carlos
+            Rua Benedito da Silva, 1090. Jardim São Carlos
             <br />São Carlos/SP
           </p>
         </b-col>
@@ -63,7 +33,8 @@
       <b-row>
         <b-col>
           <p>
-            contato@akaibara.com.br
+            Deixe sua opinião:<br />
+            emikacal@gmail.com
             <br />
             <font-awesome-icon :icon="['fab', 'whatsapp']" color="#fff" />(16)99769.6789 | (16)3372.9897
           </p>

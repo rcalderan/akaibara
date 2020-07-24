@@ -1,8 +1,8 @@
 <template>
-  <b-conteiner fluid id="home">
+  <b-container fluid id="home">
     <Menu active="home" />
     <News />
-  </b-conteiner>
+  </b-container>
 </template>
 
 <script>
